@@ -22,34 +22,27 @@ int b(char *in, char *o, int len)
 }
 
 
-int k(unsigned char *x, unsigned char *key, int l)
+int c(unsigned char *y, int w, unsigned char *k, int l)
 {
     int i;
-    unsigned char tmp, a = 0;
+    unsigned char tmp, a=0, x[256], b=0;
 
     for (i=0; i < 256; i++)
         x[i] = i;
 
     for (i=0; i < 256; i++)
     {
-        a += x[i] + key[i % l];
+        a += x[i] + k[i % l];
         tmp = x[i];
         x[i] = x[a];
         x[a] = tmp;
     }
-}
 
-int c(unsigned char *x, unsigned char *y, int l)
-{
-    unsigned char b = 0;
-    unsigned char tmp;
-    int i;
-
-    for (i=1; i <= l; i++)
+    for (i=1; i <= w; i++)
     {
         b += x[i];
         tmp = x[i];
-        x[i] = x[b];
+        x[i] = x[b]; // here
         x[b] = tmp;
         y[i-1] ^= x[(x[i] + x[b]) & 0xff];
     }
@@ -57,13 +50,11 @@ int c(unsigned char *x, unsigned char *y, int l)
 
 int main()
 {
-    unsigned char x[256];
-    unsigned char key[] = "abcd";
+    unsigned char k[] = "abcd";
     unsigned char crypt_text[sizeof(str)] = {};
     int len;
 
     len = b(str, crypt_text, strlen(str));
-    k(x, key, strlen(key));
-    c(x, crypt_text, len);
+    c(crypt_text, len, k, strlen(k));
     printf("%s\n", crypt_text);
 }
