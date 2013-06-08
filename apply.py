@@ -59,7 +59,7 @@ for l in open(csrc):
         continue
 
     #markup reserved words that need spaces..
-    l = re.sub(r'(int|char|unsigned|return|case) ', r'\1~', l)
+    l = re.sub(r'(typedef|int|char|unsigned|return|case) ', r'\1~', l)
     # drop all other spaces
     l = re.sub(r' *', '', l)
     # add back needed spaces

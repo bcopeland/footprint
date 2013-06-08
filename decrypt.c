@@ -1,16 +1,17 @@
 #include <string.h>
 #include <stdio.h>
 
-char str[] = "43(:7&!#3&@>$%^|]:&6;<7*-$}9{;!*!$5{<;-=^8]#:5<@#%#&!5!@40207#9($3&)7<$1";
+typedef unsigned char q;
+q str[] = "43(:7&!#3&@>$%^|]:&6;<7*-$}9{;!*!$5{<;-=^8]#:5<@#%#&!5!@40207#9($3&)7<$1";
 
-int b(char *in, char *o, int len)
+int b(q *n, q *o, int l)
 {
-    int i,j,z;
-    char a[] = "3:5[9&2^]{7}*<-8@=4(6#!>|)0+;1$%", d[8];
-    for (i=0; i < len; i+=8)
+    int i,j;
+    q a[] = "3:5[9&2^]{7}*<-8@=4(6#!>|)0+;1$%", d[8];
+    for (i=0; i < l; i+=8)
     {
         for (j=0; j < 8; j++)
-            d[j] = strchr(a,in[i+j])-a;
+            d[j] = (q*)strchr(a,n[i+j])-a;
         j = (i / 8) * 5;
         o[j] = d[0] << 3 | d[1] >> 2;
         o[j + 1] = d[1] << 6 | d[2] << 1 | d[3] >> 4;
@@ -22,10 +23,10 @@ int b(char *in, char *o, int len)
 }
 
 
-int c(unsigned char *y, int w, unsigned char *k, int l)
+int c(q *y, int w, q *k, int l)
 {
     int i;
-    unsigned char tmp, a=0, x[256], b=0;
+    q t, a=0, x[256], b=0;
 
     for (i=0; i < 256; i++)
         x[i] = i;
@@ -33,28 +34,27 @@ int c(unsigned char *y, int w, unsigned char *k, int l)
     for (i=0; i < 256; i++)
     {
         a += x[i] + k[i % l];
-        tmp = x[i];
+        t = x[i];
         x[i] = x[a];
-        x[a] = tmp;
+        x[a] = t;
     }
 
     for (i=1; i <= w; i++)
     {
         b += x[i];
-        tmp = x[i];
-        x[i] = x[b]; // here
-        x[b] = tmp;
+        t = x[i];
+        x[i] = x[b];
+        x[b] = t;
         y[i-1] ^= x[(x[i] + x[b]) & 0xff];
     }
 }
 
 int main()
 {
-    unsigned char k[] = "abcd";
-    unsigned char crypt_text[sizeof(str)] = {};
-    int len;
+    q k[] = "abcd", t[sizeof(str)] = {};
+    int l;
 
-    len = b(str, crypt_text, strlen(str));
-    c(crypt_text, len, k, strlen(k));
-    printf("%s\n", crypt_text);
+    l = b(str, t, strlen(str));
+    c(t, l, k, strlen(k));
+    puts(t);
 }
