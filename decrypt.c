@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 typedef unsigned char q;
-q str[] = "43(:7&!#3&@>$%^|]:&6;<7*-$}9{;!*!$5{<;-=^8]#:5<@#%#&!5!@40207#9($3&)7<$1";
+q s[] = "43(:7&!#3&@>$%^|]:&6;<7*-$}9{;!*!$5{<;-=^8]#:5<@#%#&!5!@40207#9($3&)7<$1";
 
 int b(q *n, q *o, int l)
 {
@@ -51,10 +51,10 @@ int c(q *y, int w, q *k, int l)
 
 int main()
 {
-    q k[] = "abcd", t[sizeof(str)] = {};
+    q k[] = "abcd", t[sizeof(s)] = {};
     int l;
 
-    l = b(str, t, strlen(str));
+    l = b(s, t, strlen(s));
     c(t, l, k, strlen(k));
     puts(t);
 }
