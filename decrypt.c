@@ -51,9 +51,9 @@ int c(q *y, int w, q *k, int l)
 
 int main()
 {
-    q k[] = "abcd", t[sizeof(s)] = {};
+    q k[] = "abcd", t[421] = {};
 
     b(s, t, strlen(s));
-    c(t, g, k, strlen(k));
+    c(t, g, k, 4);
     puts(t);
 }
