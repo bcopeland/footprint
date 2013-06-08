@@ -7,7 +7,7 @@ def copy_tokens(count, tokens):
         ttype, tval = tokens[0]
         if ttype == 'QSTR':
             # split string into as many chars as will fit
-            to_copy = max(min(count, len(tval)-2), 2)
+            to_copy = min(count, len(tval))
             out += '"%s"' % (tval[0:to_copy])
             if to_copy >= len(tval):
                 tokens = tokens[1:]
@@ -27,7 +27,7 @@ def tokenize(s):
         ('QSTR',    r'"[^"]*"'),
         ('NUMBER',  r'\d+(\.\d*)?'),
         ('ID',      r'[A-Za-z0-9_$]+'),
-        ('DOP',    r'(\+\+)|(\+=)'),
+        ('DOP',     r'(\+\+)|(\+=)'),
         ('OP',      r'[+*\/\-=|&<>?%^!]'),
         ('SPACE',   r'[ \t\n]+'),
         ('OTHER',   r'[\[\]{}();,:]'),
@@ -56,7 +56,7 @@ template = "foot.txt"
 code_str = ""
 for l in open(csrc):
     # skip preproc
-    if l.startswith('#'):
+    if l.startswith('#') or l.startswith('//'):
         continue
 
     #markup reserved words that need spaces..
