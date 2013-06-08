@@ -44,7 +44,7 @@ int c(q *y, int w, q *k, int l)
         t = x[i];
         x[i] = x[b];
         x[b] = t;
-        y[i-1] ^= x[(x[i] + x[b]) & 0xff];
+        y[i-1] ^= x[(q)(x[i] + x[b])];
     }
 }
 
