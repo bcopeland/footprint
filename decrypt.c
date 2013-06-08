@@ -4,10 +4,11 @@
 typedef unsigned char q;
 q s[] = "43(:7&!#3&@>$%^|]:&6;<7*-$}9{;!*!$5{<;-=^8]#:5<@#%#&!5!@40207#9($3&)7<$1";
 
-b(q *n, int l, q *k, int m, q *y)
+b(q *n, int l, q *y)
 {
-    int i,e=256;
-    q a[] = "3:5[9&2^]{7}*<-8@=4(6#!>|)0+;1$%", d[8], c=0, t, x[e], *o=y;
+    int i,e=256,m=4;
+    q a[] = "3:5[9&2^]{7}*<-8@=4(6#!>|)0+;1$%", d[8],
+      c=0, t, x[e], *o=y, k[]="abcd";
     for (i=0; i < l; i++)
     {
         d[i%8] = (q*)strchr(a,*n++)-a;
@@ -43,8 +44,8 @@ b(q *n, int l, q *k, int m, q *y)
 
 main()
 {
-    q k[] = "abcd", t[421] = {};
+    q t[421] = {};
 
-    b(s, strlen(s), k, 4, t);
+    b(s, strlen(s), t);
     puts(t);
 }

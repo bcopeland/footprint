@@ -3,7 +3,7 @@ import re
 
 def copy_tokens(count, tokens):
     out = ''
-    while count > 0:
+    while count > 0 and tokens:
         ttype, tval = tokens[0]
         if ttype == 'QSTR':
             # split string into as many chars as will fit
@@ -27,6 +27,7 @@ def tokenize(s):
         ('QSTR',    r'"[^"]*"'),
         ('NUMBER',  r'\d+(\.\d*)?'),
         ('ID',      r'[A-Za-z0-9_$]+'),
+        ('DOP',    r'(\+\+)|(\+=)'),
         ('OP',      r'[+*\/\-=|&<>?%^!]'),
         ('SPACE',   r'[ \t\n]+'),
         ('OTHER',   r'[\[\]{}();,:]'),
@@ -90,5 +91,5 @@ for ttype,tstr in tokenize(template_str):
         out_str += add_str
 
 print '%s' % out_str
-print "code len: %s" % code_len
+print "/* code len: %s */" % code_len
 
