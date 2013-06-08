@@ -3,12 +3,11 @@
 
 typedef unsigned char q;
 q s[] = "43(:7&!#3&@>$%^|]:&6;<7*-$}9{;!*!$5{<;-=^8]#:5<@#%#&!5!@40207#9($3&)7<$1";
-int g;
 
-int b(q *n, q *o, int l)
+int b(q *n, int l, q *k, int m, q *y)
 {
-    int i,j;
-    q a[] = "3:5[9&2^]{7}*<-8@=4(6#!>|)0+;1$%", d[8];
+    int i,j,w,t;
+    q a[] = "3:5[9&2^]{7}*<-8@=4(6#!>|)0+;1$%", d[8], c=0, x[256], b=0, *o=y;
     for (i=0; i < l; i+=8)
     {
         for (j=0; j < 8; j++)
@@ -19,24 +18,17 @@ int b(q *n, q *o, int l)
         *o++ = d[4] << 7 | d[5] << 2 | d[6] >> 3;
         *o++ = d[6] << 5 | d[7];
     }
-    g = l/8 * 5;
-}
-
-
-int c(q *y, int w, q *k, int l)
-{
-    int i;
-    q t, a=0, x[256], b=0;
+    w = o-y;
 
     for (i=0; i < 256; i++)
         x[i] = i;
 
     for (i=0; i < 256; i++)
     {
-        a += x[i] + k[i % l];
+        c += x[i] + k[i % m];
         t = x[i];
-        x[i] = x[a];
-        x[a] = t;
+        x[i] = x[c];
+        x[c] = t;
     }
 
     for (i=1; i <= w; i++)
@@ -53,7 +45,6 @@ int main()
 {
     q k[] = "abcd", t[421] = {};
 
-    b(s, t, strlen(s));
-    c(t, g, k, 4);
+    b(s, strlen(s), k, 4, t);
     puts(t);
 }
