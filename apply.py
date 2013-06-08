@@ -67,6 +67,7 @@ for l in open(csrc):
 
     code_str += l.strip()
 
+code_len = len(code_str)
 template_str = ""
 for l in open(template):
     template_str += l
@@ -89,3 +90,5 @@ for ttype,tstr in tokenize(template_str):
         out_str += add_str
 
 print '%s' % out_str
+print "code len: %s" % code_len
+
