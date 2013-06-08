@@ -3,6 +3,7 @@
 
 typedef unsigned char q;
 q s[] = "43(:7&!#3&@>$%^|]:&6;<7*-$}9{;!*!$5{<;-=^8]#:5<@#%#&!5!@40207#9($3&)7<$1";
+int g;
 
 int b(q *n, q *o, int l)
 {
@@ -18,7 +19,7 @@ int b(q *n, q *o, int l)
         *o++ = d[4] << 7 | d[5] << 2 | d[6] >> 3;
         *o++ = d[6] << 5 | d[7];
     }
-    return l/8 * 5;
+    g = l/8 * 5;
 }
 
 
@@ -51,9 +52,8 @@ int c(q *y, int w, q *k, int l)
 int main()
 {
     q k[] = "abcd", t[sizeof(s)] = {};
-    int l;
 
-    l = b(s, t, strlen(s));
-    c(t, l, k, strlen(k));
+    b(s, t, strlen(s));
+    c(t, g, k, strlen(k));
     puts(t);
 }
