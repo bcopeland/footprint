@@ -5,10 +5,13 @@ from rc4 import rc4crypt
 import sys
 
 key = "abcd"
-msg = "FORTRAN rots the brain.  -- John McQuillin"
+msg = ""
 
-if len(sys.argv) > 1:
-    msg = sys.argv[1]
+for line in sys.stdin:
+    msg += line
+
+# remove final newlines
+msg = msg.strip()
 
 # pad msg with spaces to 5 byte boundary to avoid '==='
 if len(msg) % 5:
@@ -24,3 +27,5 @@ print "msg: %s (size=%d)" % (msg, len(msg))
 print "crypt: %s" % [ord(i) for i in crypt]
 print "b32crypt: %s" % b32crypt
 print "remapped: %s (size %d)" % (remapped, len(remapped))
+print
+print 'q*s = "%s";' % remapped
